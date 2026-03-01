@@ -1,0 +1,1025 @@
+[
+    {
+        "id": "f6f2187d.f17ca8",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "3cc11d24.ff01a2",
+        "type": "comment",
+        "z": "f6f2187d.f17ca8",
+        "name": "WARNING: please check you have started this container with a volume that is mounted to /data\\n otherwise any flow changes are lost when you redeploy or upgrade the container\\n (e.g. upgrade to a more recent node-red docker image).\\n  If you are using named volumes you can ignore this warning.\\n Double click or see info side panel to learn how to start Node-RED in Docker to save your work",
+        "info": "\nTo start docker with a bind mount volume (-v option), for example:\n\n```\ndocker run -it -p 1880:1880 -v /home/user/node_red_data:/data --name mynodered nodered/node-red\n```\n\nwhere `/home/user/node_red_data` is a directory on your host machine where you want to store your flows.\n\nIf you do not do this then you can experiment and redploy flows, but if you restart or upgrade the container the flows will be disconnected and lost. \n\nThey will still exist in a hidden data volume, which can be recovered using standard docker techniques, but that is much more complex than just starting with a named volume as described above.",
+        "x": 350,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "14c1e72eb4fa0749",
+        "type": "inject",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "5",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 270,
+        "y": 320,
+        "wires": [
+            [
+                "baec0b01e4421fdf"
+            ]
+        ]
+    },
+    {
+        "id": "baec0b01e4421fdf",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "function 1",
+        "func": "var temp = (20 + Math.random() * 8).toFixed(1);\nmsg.payload = JSON.stringify({\n    sensor: \"library-temp-01\",\n    value: parseFloat(temp),\n    unit: \"°C\",\n    timestamp: new Date().toISOString()\n});\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 460,
+        "y": 320,
+        "wires": [
+            [
+                "6276a4ef63166dab"
+            ]
+        ]
+    },
+    {
+        "id": "6276a4ef63166dab",
+        "type": "mqtt out",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "topic": "campus/library/temperature",
+        "qos": "1",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "9c19e988ce92f7b2",
+        "x": 720,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "1ce23ca44e6030eb",
+        "type": "inject",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "5",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 270,
+        "y": 420,
+        "wires": [
+            [
+                "e17aa1162699f8e3"
+            ]
+        ]
+    },
+    {
+        "id": "e17aa1162699f8e3",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "function 2",
+        "func": "var humidity = (50 + Math.random() * 30).toFixed(1);\nmsg.payload = JSON.stringify({\n    sensor: \"library-humid-01\",\n    value: parseFloat(humidity),\n    unit: \"%\",\n    timestamp: new Date().toISOString()\n});\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 460,
+        "y": 420,
+        "wires": [
+            [
+                "9c7f44516e26337e"
+            ]
+        ]
+    },
+    {
+        "id": "9c7f44516e26337e",
+        "type": "mqtt out",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "topic": "campus/library/humidity",
+        "qos": "1",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "9c19e988ce92f7b2",
+        "x": 710,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "0782ed16b32b5906",
+        "type": "inject",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "5",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 270,
+        "y": 520,
+        "wires": [
+            [
+                "c65b98e6e36c555b"
+            ]
+        ]
+    },
+    {
+        "id": "c65b98e6e36c555b",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "function 3",
+        "func": "var count = Math.floor(Math.random() * 80);\nmsg.payload = JSON.stringify({\n    sensor: \"library-occ-01\",\n    value: count,\n    unit: \"people\",\n    timestamp: new Date().toISOString()\n});\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 460,
+        "y": 520,
+        "wires": [
+            [
+                "f3aab684e1474e13"
+            ]
+        ]
+    },
+    {
+        "id": "f3aab684e1474e13",
+        "type": "mqtt out",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "topic": "campus/library/occupancy",
+        "qos": "1",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "9c19e988ce92f7b2",
+        "x": 720,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "8fa8d69bf64ea8f2",
+        "type": "inject",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "5",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 270,
+        "y": 620,
+        "wires": [
+            [
+                "4f25fdb5b002bcd5"
+            ]
+        ]
+    },
+    {
+        "id": "4f25fdb5b002bcd5",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "function 4",
+        "func": "var temp = (22 + Math.random() * 8).toFixed(1);\nmsg.payload = JSON.stringify({\n    sensor: \"lab-temp-01\",\n    value: parseFloat(temp),\n    unit: \"°C\",\n    timestamp: new Date().toISOString()\n});\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 460,
+        "y": 620,
+        "wires": [
+            [
+                "e2ffce48bc19a1f1"
+            ]
+        ]
+    },
+    {
+        "id": "e2ffce48bc19a1f1",
+        "type": "mqtt out",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "topic": "campus/lab/temperature",
+        "qos": "1",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "9c19e988ce92f7b2",
+        "x": 710,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "479b7995ac89a066",
+        "type": "inject",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "5",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 270,
+        "y": 720,
+        "wires": [
+            [
+                "268fd37c9ef45cec"
+            ]
+        ]
+    },
+    {
+        "id": "268fd37c9ef45cec",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "function 5",
+        "func": "var motion = Math.random() > 0.5;\nmsg.payload = JSON.stringify({\n    sensor: \"lab-motion-01\",\n    value: motion,\n    status: motion ? \"DETECTED\" : \"CLEAR\",\n    timestamp: new Date().toISOString()\n});\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 460,
+        "y": 720,
+        "wires": [
+            [
+                "c28ce4730fcd7dec"
+            ]
+        ]
+    },
+    {
+        "id": "c28ce4730fcd7dec",
+        "type": "mqtt out",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "topic": "campus/lab/motion",
+        "qos": "1",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "9c19e988ce92f7b2",
+        "x": 690,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "a3ea086f640ef140",
+        "type": "inject",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "5",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 270,
+        "y": 820,
+        "wires": [
+            [
+                "77cce40e7d85059c"
+            ]
+        ]
+    },
+    {
+        "id": "77cce40e7d85059c",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "function 6",
+        "func": "var watts = Math.floor(1500 + Math.random() * 1000);\nmsg.payload = JSON.stringify({\n    sensor: \"lab-power-01\",\n    value: watts,\n    unit: \"W\",\n    timestamp: new Date().toISOString()\n});\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 460,
+        "y": 820,
+        "wires": [
+            [
+                "865055904e73ea72"
+            ]
+        ]
+    },
+    {
+        "id": "865055904e73ea72",
+        "type": "mqtt out",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "topic": "campus/lab/power_usage",
+        "qos": "1",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "9c19e988ce92f7b2",
+        "x": 710,
+        "y": 820,
+        "wires": []
+    },
+    {
+        "id": "c649695867744ee5",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "Wildcard Subscriber",
+        "topic": "campus/#",
+        "qos": "1",
+        "datatype": "auto-detect",
+        "broker": "9c19e988ce92f7b2",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 270,
+        "y": 1020,
+        "wires": [
+            [
+                "165736e206cd0142",
+                "3b50fbaf778c1d77"
+            ]
+        ]
+    },
+    {
+        "id": "3b50fbaf778c1d77",
+        "type": "switch",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "campus/library/temperature",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "campus/library/humidity",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "campus/library/occupancy",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "campus/lab/temperature",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "campus/lab/motion",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "campus/lab/power_usage",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 6,
+        "x": 550,
+        "y": 1020,
+        "wires": [
+            [
+                "6489e48206501c1d"
+            ],
+            [
+                "3cebc202ddd2d824"
+            ],
+            [
+                "a34b584eb7bc0d6f"
+            ],
+            [
+                "97f7e11b147cec59"
+            ],
+            [
+                "5a6a38f868ab9682"
+            ],
+            [
+                "10a8ee97d1f0999d"
+            ]
+        ]
+    },
+    {
+        "id": "2248b43f28c9c6fc",
+        "type": "ui_chart",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "group": "587c594950ba8571",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "label": "Library Temperature °C",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "15",
+        "ymax": "35",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 1050,
+        "y": 980,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "6e89c63649dc9885",
+        "type": "ui_gauge",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "group": "587c594950ba8571",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Humidity %",
+        "label": "units",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 1010,
+        "y": 920,
+        "wires": []
+    },
+    {
+        "id": "dd850071f689dbd0",
+        "type": "ui_text",
+        "z": "f6f2187d.f17ca8",
+        "group": "3b6f5bc782a56ba7",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Motion Status",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 1020,
+        "y": 1160,
+        "wires": []
+    },
+    {
+        "id": "05c6ef3faef29604",
+        "type": "ui_chart",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "group": "3b6f5bc782a56ba7",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "label": "Power Usage W",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "1000",
+        "ymax": "3000",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 1020,
+        "y": 1220,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3cebc202ddd2d824",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "Extract Humidity",
+        "func": "msg.payload = msg.payload.value;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 770,
+        "y": 920,
+        "wires": [
+            [
+                "6e89c63649dc9885"
+            ]
+        ]
+    },
+    {
+        "id": "5a6a38f868ab9682",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "Extract Motion",
+        "func": "msg.payload = msg.payload.status;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 760,
+        "y": 1160,
+        "wires": [
+            [
+                "dd850071f689dbd0"
+            ]
+        ]
+    },
+    {
+        "id": "10a8ee97d1f0999d",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "Extract Power",
+        "func": "msg.payload = msg.payload.value;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 760,
+        "y": 1220,
+        "wires": [
+            [
+                "05c6ef3faef29604"
+            ]
+        ]
+    },
+    {
+        "id": "6489e48206501c1d",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "Extract Temperature",
+        "func": "msg.payload = msg.payload.value;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 780,
+        "y": 980,
+        "wires": [
+            [
+                "2248b43f28c9c6fc"
+            ]
+        ]
+    },
+    {
+        "id": "3e133d6da59529c3",
+        "type": "ui_text",
+        "z": "f6f2187d.f17ca8",
+        "group": "587c594950ba8571",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Occupancy",
+        "format": "{{msg.payload}} people",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 1010,
+        "y": 1100,
+        "wires": []
+    },
+    {
+        "id": "a34b584eb7bc0d6f",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "Extract Occupancy",
+        "func": "msg.payload = msg.payload.value;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 770,
+        "y": 1100,
+        "wires": [
+            [
+                "3e133d6da59529c3"
+            ]
+        ]
+    },
+    {
+        "id": "165736e206cd0142",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 400,
+        "y": 1140,
+        "wires": []
+    },
+    {
+        "id": "f4b5e0fde8374668",
+        "type": "ui_chart",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "group": "3b6f5bc782a56ba7",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "label": "Lab Temperature °C",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "15",
+        "ymax": "35",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 1040,
+        "y": 1040,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "97f7e11b147cec59",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "Extract Temperature",
+        "func": "msg.payload = msg.payload.value;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 780,
+        "y": 1040,
+        "wires": [
+            [
+                "f4b5e0fde8374668"
+            ]
+        ]
+    },
+    {
+        "id": "386eb26a698a21dc",
+        "type": "inject",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "10",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 270,
+        "y": 1360,
+        "wires": [
+            [
+                "ecceced248520b40"
+            ]
+        ]
+    },
+    {
+        "id": "ecceced248520b40",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "System Status",
+        "func": "msg.payload = JSON.stringify({\n    status: \"online\",\n    broker: \"localhost:1883\",\n    timestamp: new Date().toISOString()\n});\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 460,
+        "y": 1360,
+        "wires": [
+            [
+                "08353bc3041f6e4d"
+            ]
+        ]
+    },
+    {
+        "id": "7118e4d6693e64bc",
+        "type": "mqtt out",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "topic": "campus/system/status",
+        "qos": "0",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "9c19e988ce92f7b2",
+        "x": 900,
+        "y": 1360,
+        "wires": []
+    },
+    {
+        "id": "58ca5fd0459df5b0",
+        "type": "ui_text",
+        "z": "f6f2187d.f17ca8",
+        "group": "587c594950ba8571",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "System Status",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 880,
+        "y": 1420,
+        "wires": []
+    },
+    {
+        "id": "08353bc3041f6e4d",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "Format Status",
+        "func": "var data = JSON.parse(msg.payload);\nmsg.payload = \"Status: \" + data.status + \" | Broker: \" + data.broker;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 660,
+        "y": 1360,
+        "wires": [
+            [
+                "7118e4d6693e64bc",
+                "58ca5fd0459df5b0"
+            ]
+        ]
+    },
+    {
+        "id": "9c19e988ce92f7b2",
+        "type": "mqtt-broker",
+        "name": "Mosquitto",
+        "broker": "192.168.1.10",
+        "port": 1883,
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "587c594950ba8571",
+        "type": "ui_group",
+        "name": "Library Sensors",
+        "tab": "8db47e9faba2f91a",
+        "order": 1,
+        "disp": true,
+        "width": 6,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "3b6f5bc782a56ba7",
+        "type": "ui_group",
+        "name": "Lab Sensors",
+        "tab": "8db47e9faba2f91a",
+        "order": 2,
+        "disp": true,
+        "width": 6,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "8db47e9faba2f91a",
+        "type": "ui_tab",
+        "name": "Campus Monitor",
+        "icon": "dashboard",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "a2d6e2fe7f6dc50e",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "node-red-dashboard": "3.6.6"
+        }
+    }
+]
